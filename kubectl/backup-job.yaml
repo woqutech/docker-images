@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: index-rebuild-job
+spec:
+  template:
+    spec:
+      serviceAccountName: dbalex
+      containers:
+      - name: kubectl
+        image: 10.10.20.3:5000/dbalex/kubectl
+        command: ["kubectl", "exec",  "-it", "mysql-57-0", "/usr/bin/index-rebuild.sh"]
+      restartPolicy: Never
