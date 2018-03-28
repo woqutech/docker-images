@@ -109,7 +109,7 @@ sqlplus / as sysdba << EOF
      execute immediate 'alter database datafile ' || v_fileid || ' resize 1G';
      end if;
      if instr(v_filename,'undo') <> 0 then
-     execute immediate 'alter database datafile ' || v_fileid || ' resize 1G';
+     execute immediate 'alter database datafile ' || v_fileid || ' resize 10G';
      end if;
      FETCH c_cursor INTO v_filename, v_fileid;
    END LOOP;

@@ -69,6 +69,8 @@ WORKDIR /home/oracle
 
 VOLUME ["$ORACLE_BASE/oradata"]
 EXPOSE 1521
+HEALTHCHECK --interval=1m --start-period=5m \
+   CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null
 
 # Define default command to start Oracle Database. 
 CMD exec $ORACLE_BASE/$RUN_FILE
