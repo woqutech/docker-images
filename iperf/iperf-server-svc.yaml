@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: iperf-server-svc
+    role: master
+  name: iperf-server-svc
+  namespace: default
+spec:
+  ports:
+  - name: iperf-server-port
+    port: 5001
+    protocol: TCP
+    targetPort: 5001
+  selector:
+    name: iperf-server
+  type: ClusterIP

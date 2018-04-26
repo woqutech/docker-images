@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: iperf-client
+  labels:
+    name: iperf-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: iperf-client
+  template:
+    metadata:
+      name: iperf-client
+      labels:
+        name: iperf-client
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-baremetal-node1
+      containers:
+      - name: client
+        image: 10.10.20.3:5000/library/iperf
+        imagePullPolicy: Always
+        command: ["iperf"]
+        args: ["-c","iperf-server-svc","-t","100"]
